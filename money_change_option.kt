@@ -3,12 +3,10 @@ fun getCashSuggestions(cost: Int): List<Int> {
     val suggestions = mutableSetOf<Int>()
     suggestions.add(cost)  // Always include the exact cost
     
-    // Check if the cost ends with 750 and add the rounded suggestion (e.g., 750 -> 900)
-    if (cost % 1000 == 750) {
-        val roundedCost = cost + 150
-        suggestions.add(roundedCost)
-    }
-    
+    val mod1000 = cost % 1000
+        if (mod1000 > 700 && mod1000 <= 800) {
+            suggestions.add(cost + (900 - mod1000))// Ensure 701-800 → 900
+        }
     // Add the next multiple of each denomination if greater than cost
     for (denomination in denominations) {
         // Calculate the next multiple of the denomination that is >= cost
